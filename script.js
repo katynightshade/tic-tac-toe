@@ -1,7 +1,10 @@
 const makeGameboard = (() => {
-    let gameboard = new Array();
+    let gameboard = new Array(9);
+    let gameArray = document.querySelectorAll('.game-array');
     for (let i = 0; i < gameboard.length; i++) {
-        gameboard[i].fill(document.querySelectorAll('.game-array').values);
+        for (let i = 0; i < gameArray.length; i++) {
+           gameboard[i] = gameArray[i].textContent;
+        }
     }
 
     return {
