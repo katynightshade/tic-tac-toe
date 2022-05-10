@@ -12,10 +12,23 @@ const makeGameboard = (() => {
     }
 })();
 
-console.log(makeGameboard);
-
 const displayController = (() => {
+    let selection = 'X';
+    let nextTurn = {
+        'X': 'O',
+        'O': 'X',
+    }
 
+    const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
+        item.addEventListener('click', () => {
+            item.textContent = selection;
+            selection = nextTurn[selection];
+        });
+    });
+    
+    return {
+        gameArray,
+    }
 })();
 
 const Player = (sign) => {

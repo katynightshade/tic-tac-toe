@@ -21,6 +21,10 @@ header {
     grid-template-rows: repeat(3, 1fr);
 }
 
+.game-array {
+    border: 1px solid black;
+}
+
 .player-container {
     grid-row: 2 / 3;
 }
