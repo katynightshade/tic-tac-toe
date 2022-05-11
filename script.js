@@ -30,9 +30,7 @@ const displayController = (() => {
     });
 
     const resetBtn = document.getElementById('reset-btn').addEventListener('click', () => {
-        makeGameboard.gameArray.forEach((item) => {
-            item.textContent = '';
-        });
+        window.location.reload();
     });
 
     const setMessage = (message) => {
