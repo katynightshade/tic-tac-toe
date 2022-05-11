@@ -9,6 +9,7 @@ const makeGameboard = (() => {
 
     return {
         gameboard,
+        gameArray,
     }
 })();
 
@@ -18,7 +19,7 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
-    const playerMessage = document.getElementById('player-msg');
+    const winnerMsg = document.getElementById('winner-msg');
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems() {
@@ -28,12 +29,19 @@ const displayController = (() => {
         });
     });
 
+    const resetBtn = document.getElementById('reset-btn').addEventListener('click', () => {
+        makeGameboard.gameArray.forEach((item) => {
+            item.textContent = '';
+        });
+    });
+
     const setMessage = (message) => {
-        playerMessage.textContent = message;
+        message = winnerMsg.textContent
     }
     
     return {
         gameArray,
+        resetBtn,
         setMessage,
     }
 })();
@@ -51,19 +59,14 @@ const Player = (sign) => {
 }
 
 const gameFlow = (() => {
-    let playerX = Player('X');
-    let playerO = Player('O');
-    let round = 1;
-
-    const getPlayerSign = () => {
-        return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
+    const determineWinner = () => {
+        if (makeGameboard.gameboard[0].textContent === X && makeGameboard.gameboard[1].textContent === X && makeGameboard.gameboard[2].textContent === X) {
+            displayController.setMessage(`Player X Wins!`);
+        }
     }
 
-    displayController.setMessage(`Player ${getPlayerSign}'s Turn`)
-
     return {
-        getPlayerSign,
-
+        determineWinner,
     }
 })();
 
