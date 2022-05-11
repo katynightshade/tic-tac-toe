@@ -18,20 +18,29 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
+    const playerMessage = document.getElementById('player-msg');
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', function placeItems() {
+            if (item.textContent !== '') return;
             item.textContent = selection;
             selection = nextTurn[selection];
         });
     });
+
+    const setMessage = (message) => {
+        playerMessage.textContent = message;
+    }
     
     return {
         gameArray,
+        setMessage,
     }
 })();
 
 const Player = (sign) => {
+    this.sign = sign;
+
     const getSign = () => {
         return sign;
     }
@@ -41,7 +50,20 @@ const Player = (sign) => {
     }
 }
 
-const gameFlow = () => {
+const gameFlow = (() => {
+    let playerX = Player('X');
+    let playerO = Player('O');
+    let round = 1;
 
-}
+    const getPlayerSign = () => {
+        return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
+    }
+
+    displayController.setMessage(`Player ${getPlayerSign}'s Turn`)
+
+    return {
+        getPlayerSign,
+
+    }
+})();
 
