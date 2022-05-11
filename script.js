@@ -57,20 +57,10 @@ const Player = (sign) => {
 }
 
 const gameFlow = (() => {
-    const boxOne = document.getElementById('box1');
-    const boxTwo = document.getElementById('box2');
-    const boxThree = document.getElementById('box3');
-    const boxFour = document.getElementById('box4');
-    const boxFive = document.getElementById('box5');
-    const boxSix = document.getElementById('box6');
-    const boxSeven = document.getElementById('box7');
-    const boxEight = document.getElementById('box8');
-    const boxNine = document.getElementById('box9');
+    
 
     const determineWinner = () => {
-        if (boxOne.textContent === 'X' && boxTwo.textContent === 'X' && boxThree.textContent === 'X') {
-            displayController.setMessage('Player X wins!');
-        }
+        
     }
 
     return {
