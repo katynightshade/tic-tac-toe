@@ -57,13 +57,24 @@ const Player = (sign) => {
 }
 
 const gameFlow = (() => {
-    
+    let round = 1;
+    const gameContainer = document.querySelector('.game-container');
+
+    const roundUp = () => {
+        gameContainer.addEventListener('click', () => {
+            round++;
+        });
+        if (round === 9) {
+            displayController.setMessage("It's a tie!");
+        }
+    }
 
     const determineWinner = () => {
         
     }
 
     return {
+        roundUp,
         determineWinner,
     }
 })();
