@@ -7,11 +7,15 @@ html, body {
 
 .page-container {
     display: grid;
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-rows: 15vh 10vh 60vh 15vh;
+    background-color: black;
+    justify-content: center;
 }
 
 header {
-
+    height: 100%;
+    color: white;
+    text-align: center;
 }
 
 .game-container {
@@ -19,6 +23,8 @@ header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    background-color: white;
+    width: 50vw;
 }
 
 .game-array {
@@ -27,4 +33,12 @@ header {
 
 .player-container {
     grid-row: 2 / 3;
+    color: white;
+    text-align: center;
+}
+
+.reset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

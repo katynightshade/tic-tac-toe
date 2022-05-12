@@ -19,7 +19,6 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
-    const winnerMsg = document.getElementById('winner-msg');
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems() {
@@ -34,6 +33,7 @@ const displayController = (() => {
     });
 
     const setMessage = (message) => {
+        const winnerMsg = document.getElementById('winner-msg');
         winnerMsg.textContent = message;
     }
     
@@ -59,7 +59,7 @@ const Player = (sign) => {
 const gameFlow = (() => {
     let round = 1;
     const gameContainer = document.querySelector('.game-container');
-    const gameArray =document.querySelectorAll('.game-array');
+    const gameArray = document.querySelectorAll('.game-array');
 
     const roundUp = () => {
         gameContainer.addEventListener('click', () => {
@@ -71,11 +71,7 @@ const gameFlow = (() => {
     }
 
     const determineWinner = () => {
-        for (let i = 0; i < gameArray.length; i++) {
-            if (gameArray[i].dataset.index[0] == 'X') {
-                displayController.setMessage('Player X Wins!');
-            }
-        }
+        
     }
 
     const resetBoard = () => {
