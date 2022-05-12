@@ -34,7 +34,7 @@ const displayController = (() => {
     });
 
     const setMessage = (message) => {
-        message = winnerMsg.textContent
+        winnerMsg.textContent = message;
     }
     
     return {
