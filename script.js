@@ -59,6 +59,7 @@ const Player = (sign) => {
 const gameFlow = (() => {
     let round = 1;
     const gameContainer = document.querySelector('.game-container');
+    const gameArray =document.querySelectorAll('.game-array');
 
     const roundUp = () => {
         gameContainer.addEventListener('click', () => {
@@ -70,12 +71,27 @@ const gameFlow = (() => {
     }
 
     const determineWinner = () => {
-        
+        for (let i = 0; i < gameArray.length; i++) {
+            if (gameArray[i].dataset.index[0] == 'X') {
+                displayController.setMessage('Player X Wins!');
+            }
+        }
+    }
+
+    const resetBoard = () => {
+        window.location.reload();
+    }
+
+    const gameOver = () => {
+        //determine winner, if winner declared resetBoard();
+        resetBoard();
+
     }
 
     return {
         roundUp,
         determineWinner,
+        gameOver,
     }
 })();
 
