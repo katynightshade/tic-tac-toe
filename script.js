@@ -1,3 +1,6 @@
+"use strict";
+
+//array is not populating on click
 const makeGameboard = (() => {
     let gameboard = new Array(9);
     let gameArray = document.querySelectorAll('.game-array');
@@ -33,14 +36,24 @@ const displayController = (() => {
     });
 
     const setMessage = (message) => {
+        const playerMsg = document.getElementById('player-msg');
         const winnerMsg = document.getElementById('winner-msg');
         winnerMsg.textContent = message;
+        playerMsg.style.display = 'none';
+    }
+
+    const setResultMessage = (winner) => {
+        if  (winner === 'Draw') {
+            setMessage("It's a tie!");
+        } else {
+            setMessage(`Player ${winner} wins!`);
+        }
     }
     
     return {
         gameArray,
         resetBtn,
-        setMessage,
+        setResultMessage,
     }
 })();
 
@@ -57,21 +70,24 @@ const Player = (sign) => {
 }
 
 const gameFlow = (() => {
+    let playerX = new Player('X');
+    let playerO = new Player('O');
     let round = 1;
     const gameContainer = document.querySelector('.game-container');
     const gameArray = document.querySelectorAll('.game-array');
+    let winner;
 
     const roundUp = () => {
         gameContainer.addEventListener('click', () => {
             round++;
         });
         if (round === 9) {
-            displayController.setMessage("It's a tie!");
+            displayController.setResultMessage('Draw');
         }
     }
 
     const determineWinner = () => {
-        
+    
     }
 
     const resetBoard = () => {
@@ -79,15 +95,18 @@ const gameFlow = (() => {
     }
 
     const gameOver = () => {
-        //determine winner, if winner declared resetBoard();
+        if (winner == 'X') {
+            displayController.setResultMessage('X');
+        } else if (winner == 'O') {
+            displayController.setResultMessage('O');
+        }
         resetBoard();
 
     }
 
     return {
         roundUp,
-        determineWinner,
-        gameOver,
+        getPlayerSign,
     }
 })();
 

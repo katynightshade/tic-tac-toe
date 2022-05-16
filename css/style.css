@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 html, body {
     max-width: 100vw;
     max-height: 100vh;
@@ -10,6 +12,7 @@ html, body {
     grid-template-rows: 15vh 10vh 60vh 15vh;
     background-color: black;
     justify-content: center;
+    font-family: 'Nunito', sans-serif;
 }
 
 header {
@@ -29,6 +32,10 @@ header {
 
 .game-array {
     border: 1px solid black;
+    font-size: 300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .player-container {
