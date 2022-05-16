@@ -57,7 +57,7 @@ const displayController = (() => {
     }
 })();
 
-const Player = (sign) => {
+function Player (sign) {
     this.sign = sign;
 
     const getSign = () => {
@@ -106,7 +106,6 @@ const gameFlow = (() => {
 
     return {
         roundUp,
-        getPlayerSign,
     }
 })();
 
