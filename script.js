@@ -2,12 +2,11 @@
 
 //array is not populating on click
 const makeGameboard = (() => {
-    let gameboard = new Array(9);
+    let gameboard = new Array();
     let gameArray = document.querySelectorAll('.game-array');
-    for (let i = 0; i < gameboard.length; i++) {
-        for (let i = 0; i < gameArray.length; i++) {
-           gameboard[i] = gameArray[i].textContent;
-        }
+
+    for (let i = 0; i < gameArray.length; i++) {
+        gameboard.push(gameArray[i].textContent);
     }
 
     return {
@@ -22,11 +21,11 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
-
+    
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems() {
-            if (item.textContent !== '') return;
-            item.textContent = selection;
+            if (item.innerHTML !== '') return;
+            item.innerHTML = selection;
             selection = nextTurn[selection];
         });
     });
