@@ -21,13 +21,18 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
-    
+    const playerMsg = document.getElementById('player-msg');
+    const winnerMsg = document.getElementById('winner-msg');
+
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems(e) {
             if (item.textContent !== '') return;
             makeGameboard.gameboard[e.target.id] = selection;
             item.textContent = selection;
             selection = nextTurn[selection];
+            if (gameFlow.winner = true) {
+                item.removeEventListener('click', placeItems());
+            }
         });
     });
 
@@ -36,8 +41,6 @@ const displayController = (() => {
     });
 
     const setMessage = (message) => {
-        const playerMsg = document.getElementById('player-msg');
-        const winnerMsg = document.getElementById('winner-msg');
         winnerMsg.textContent = message;
         playerMsg.style.display = 'none';
     }
@@ -78,22 +81,23 @@ const gameFlow = (() => {
     let winner = false;
 
     const roundUp = () => {
-        gameContainer.addEventListener('click', increaseRound());
-        if (winner = true) {
-            gameContainer.removeEventListener('click', increaseRound());
-        };
-        function increaseRound() {
-            round++;
+        gameContainer.addEventListener('click', function increaseRound() {
+            round += 1;
             if (round === 9) {
                 displayController.setResultMessage('Draw');
             };
             console.log(gameFlow.round);
-        };
-        
+            if (winner = true) {
+                gameContainer.removeEventListener('click', increaseRound());
+            };
+        });
     }
 
     const determineWinner = () => {
-    
+        if (makeGameboard.gameboard[0] === 'X' && makeGameboard.gameboard[1] === 'X' && makeGameboard.gameboard[2] === 'X') {
+            this.winner = true;
+            displayController.setMessage(`Player X Wins!`);
+        }
     }
 
     const resetBoard = () => {
@@ -101,18 +105,14 @@ const gameFlow = (() => {
     }
 
     const gameOver = () => {
-        if (winner == 'X') {
-            displayController.setResultMessage('X');
-        } else if (winner == 'O') {
-            displayController.setResultMessage('O');
-        }
-        resetBoard();
 
     }
 
     return {
+        winner,
         round,
         roundUp,
+        determineWinner,
     }
 })();
 
