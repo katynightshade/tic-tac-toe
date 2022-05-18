@@ -1,5 +1,3 @@
-"use strict";
-
 //array is not populating on click
 const makeGameboard = (() => {
     let gameboard = new Array();
@@ -86,11 +84,12 @@ const gameFlow = (() => {
             if (round === 9) {
                 displayController.setResultMessage('Draw');
             };
-            console.log(gameFlow.round);
+            console.log(round);
             if (winner = true) {
                 gameContainer.removeEventListener('click', increaseRound());
             };
         });
+        return round;
     }
 
     const determineWinner = () => {
@@ -98,14 +97,6 @@ const gameFlow = (() => {
             this.winner = true;
             displayController.setMessage(`Player X Wins!`);
         }
-    }
-
-    const resetBoard = () => {
-        window.location.reload();
-    }
-
-    const gameOver = () => {
-
     }
 
     return {
