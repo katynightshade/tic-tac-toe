@@ -23,9 +23,10 @@ const displayController = (() => {
     }
     
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
-        item.addEventListener('click', function placeItems() {
-            if (item.innerHTML !== '') return;
-            item.innerHTML = selection;
+        item.addEventListener('click', function placeItems(e) {
+            if (item.textContent !== '') return;
+            makeGameboard.gameboard[e.target.id] = selection;
+            item.textContent = selection;
             selection = nextTurn[selection];
         });
     });
@@ -56,7 +57,7 @@ const displayController = (() => {
     }
 })();
 
-function Player (sign) {
+const Player = (sign) => {
     this.sign = sign;
 
     const getSign = () => {
@@ -69,20 +70,26 @@ function Player (sign) {
 }
 
 const gameFlow = (() => {
-    let playerX = new Player('X');
-    let playerO = new Player('O');
-    let round = 1;
+    let playerX = Player('X');
+    let playerO = Player('O');
+    let round = 0;
     const gameContainer = document.querySelector('.game-container');
     const gameArray = document.querySelectorAll('.game-array');
-    let winner;
+    let winner = false;
 
     const roundUp = () => {
-        gameContainer.addEventListener('click', () => {
+        gameContainer.addEventListener('click', increaseRound());
+        if (winner = true) {
+            gameContainer.removeEventListener('click', increaseRound());
+        };
+        function increaseRound() {
             round++;
-        });
-        if (round === 9) {
-            displayController.setResultMessage('Draw');
-        }
+            if (round === 9) {
+                displayController.setResultMessage('Draw');
+            };
+            console.log(gameFlow.round);
+        };
+        
     }
 
     const determineWinner = () => {
@@ -104,6 +111,7 @@ const gameFlow = (() => {
     }
 
     return {
+        round,
         roundUp,
     }
 })();
