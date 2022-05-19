@@ -46,9 +46,9 @@ const displayController = (() => {
             gameFlow.winnerCheck();
             if (gameFlow.winner === false) {
                 if (gameFlow.round < 9) {
-                    activePlayer = playerX;
+                    /*activePlayer = playerX;
                     activePlayer = playerTurn[activePlayer];
-                    console.log(activePlayer.sign);
+                    console.log(activePlayer.sign);*/
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
@@ -88,7 +88,10 @@ const gameFlow = (() => {
         ) {
             winnerMsg.textContent = `Player ${displayController.activePlayer.sign} wins!`;
             playerMsg.style.display = 'none';
-            this.winner = true;
+            winner = true;
+            console.log(winner);
+        } else {
+            this.winner = false;
         }
     }
 
