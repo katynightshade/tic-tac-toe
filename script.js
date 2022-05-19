@@ -19,8 +19,6 @@ const displayController = (() => {
         'X': 'O',
         'O': 'X',
     }
-    const playerMsg = document.getElementById('player-msg');
-    const winnerMsg = document.getElementById('winner-msg');
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems(e) {
@@ -31,30 +29,25 @@ const displayController = (() => {
             if (gameFlow.winner = true) {
                 item.removeEventListener('click', placeItems());
             }
+            gameFlow.round += 1;
+            gameFlow.winnerCheck();
+            if (gameFlow.winner === false) {
+                if (gameFlow.round < 9) {
+                    gameFlow.checkPlayer();
+                } else if (gameFlow.round === 9) {
+                    gameFlow.declareTie();
+                };
+            };
         });
     });
 
     const resetBtn = document.getElementById('reset-btn').addEventListener('click', () => {
         window.location.reload();
     });
-
-    const setMessage = (message) => {
-        winnerMsg.textContent = message;
-        playerMsg.style.display = 'none';
-    }
-
-    const setResultMessage = (winner) => {
-        if  (winner === 'Draw') {
-            setMessage("It's a tie!");
-        } else {
-            setMessage(`Player ${winner} wins!`);
-        }
-    }
     
     return {
         gameArray,
         resetBtn,
-        setResultMessage,
     }
 })();
 
@@ -73,37 +66,51 @@ const Player = (sign) => {
 const gameFlow = (() => {
     let playerX = Player('X');
     let playerO = Player('O');
+
+    let activePlayer = playerX;
     let round = 0;
-    const gameContainer = document.querySelector('.game-container');
-    const gameArray = document.querySelectorAll('.game-array');
     let winner = false;
 
-    const roundUp = () => {
-        gameContainer.addEventListener('click', function increaseRound() {
-            round += 1;
-            if (round === 9) {
-                displayController.setResultMessage('Draw');
-            };
-            console.log(round);
-            if (winner = true) {
-                gameContainer.removeEventListener('click', increaseRound());
-            };
+    const winnerMsg = document.getElementById('winner-msg');
+    const playerMsg = document.getElementById('player-msg');
+
+    const winningCombos = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6],
+    ];
+
+    function winnerCheck() {
+        winningCombos.forEach((item, index) => {
+            if (makeGameboard.gameboard[item[0]] === this.activePlayer.getSign && makeGameboard.gameboard[item[1]] === this.activePlayer.getSign && makeGameboard.gameboard[item[2]] === this.activePlayer.getSign) {
+                winnerMsg.textContent = `Player ${activePlayer.getSign} wins!`;
+                playerMsg.style.display = 'none';
+                this.winner = true;
+            }
         });
-        return round;
     }
 
-    const determineWinner = () => {
-        if (makeGameboard.gameboard[0] === 'X' && makeGameboard.gameboard[1] === 'X' && makeGameboard.gameboard[2] === 'X') {
-            this.winner = true;
-            displayController.setMessage(`Player X Wins!`);
-        }
+    function checkPlayer() {
+        this.activePlayer === playerX ? this.activePlayer = playerO : this.activePlayer = playerX;
+        console.log('active player:' + activePlayer.getSign);
+    }
+
+    function declareTie() {
+        winnerMsg.textContent = 'Tied game!';
     }
 
     return {
-        winner,
+        activePlayer,
         round,
-        roundUp,
-        determineWinner,
+        winner,
+        winnerCheck, 
+        checkPlayer,
+        declareTie,
     }
 })();
 
