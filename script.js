@@ -40,10 +40,6 @@ const displayController = (() => {
             selection = nextTurn[selection];
             gameFlow.round += 1;
             gameFlow.winnerCheck();
-            if (gameFlow.winner == true) {
-                item.removeEventListener('click', placeItems());
-                console.log('EL removed');
-            }
             if (gameFlow.winner === false) {
                 if (gameFlow.round < 9) {
                     /*activePlayer = playerX;
@@ -52,7 +48,10 @@ const displayController = (() => {
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
-            };
+            } else {
+                item.removeEventListener('click', placeItems());
+                console.log('EL removed');
+            }
         });
     });
 
