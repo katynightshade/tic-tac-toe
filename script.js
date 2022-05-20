@@ -38,12 +38,12 @@ const displayController = (() => {
             makeBoard.board[e.target.id] = selection;
             item.textContent = selection;
             selection = nextTurn[selection];
-            if (gameFlow.winner === true) {
+            gameFlow.round += 1;
+            gameFlow.winnerCheck();
+            if (gameFlow.winner == true) {
                 item.removeEventListener('click', placeItems());
                 console.log('EL removed');
             }
-            gameFlow.round += 1;
-            gameFlow.winnerCheck();
             if (gameFlow.winner === false) {
                 if (gameFlow.round < 9) {
                     /*activePlayer = playerX;
@@ -89,9 +89,6 @@ const gameFlow = (() => {
             winnerMsg.textContent = `Player ${displayController.activePlayer.sign} wins!`;
             playerMsg.style.display = 'none';
             winner = true;
-            console.log(winner);
-        } else {
-            this.winner = false;
         }
     }
 
@@ -107,4 +104,3 @@ const gameFlow = (() => {
         declareTie,
     }
 })();
-
