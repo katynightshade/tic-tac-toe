@@ -35,6 +35,8 @@ const displayController = (() => {
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems(e) {
             if (item.textContent !== '') return;
+            //gameFlow.winner continues to return false
+            if (gameFlow.winner === true) return;
             makeBoard.board[e.target.id] = selection;
             item.textContent = selection;
             selection = nextTurn[selection];
@@ -42,15 +44,15 @@ const displayController = (() => {
             gameFlow.winnerCheck();
             if (gameFlow.winner === false) {
                 if (gameFlow.round < 9) {
-                    /*activePlayer = playerX;
+                    //activePlayer returns undefined
                     activePlayer = playerTurn[activePlayer];
-                    console.log(activePlayer.sign);*/
+                    console.log(activePlayer);
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
             } else {
-                item.removeEventListener('click', placeItems());
-                console.log('EL removed');
+                console.log('returned');
+                return
             }
         });
     });
