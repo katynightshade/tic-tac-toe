@@ -46,14 +46,12 @@ const displayController = (() => {
             selection = nextTurn[selection];
             gameFlow.round += 1;
             gameFlow.winnerCheck();
-            if (/*winner = true */) return;
-            if (/*winner = false */) {
-                if (gameFlow.round < 9) {
-                    activePlayer();
-                } else if (gameFlow.round === 9) {
-                    gameFlow.declareTie();
-                };
-            }
+            if (gameFlow.winner === true) return;
+            if (gameFlow.round < 9) {
+                activePlayer();
+            } else if (gameFlow.round === 9) {
+                gameFlow.declareTie();
+            };
         });
     });
 
@@ -70,6 +68,7 @@ const displayController = (() => {
 
 const gameFlow = (() => {
     let round = 0;
+    let winner;
     
 
     const winnerMsg = document.getElementById('winner-msg');
@@ -103,6 +102,7 @@ const gameFlow = (() => {
 
     return {
         round,
+        winner,
         winnerCheck, 
         declareTie,
     }
