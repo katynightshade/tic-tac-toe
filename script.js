@@ -36,7 +36,6 @@ const displayController = (() => {
         } else {
             current = playerO;
         }
-        console.log(current.sign);
         return current.sign;
     }
 
@@ -56,9 +55,6 @@ const displayController = (() => {
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
-            } else if (gameFlow.winner == true) {
-                console.log('returned');
-                return
             }
         });
     });
@@ -93,7 +89,7 @@ const gameFlow = (() => {
             (board[0] === board[4] && board[4] === board[8] && board[0] === board[8] && board[0] !== '' && board[4] !== '' && board[8] !== '') ||
             (board[2] === board[4] && board[4] === board[6] && board[2] === board[6] && board[2] !== '' && board[4] !== '' && board[6] !== '')
         ) {
-            winnerMsg.textContent = `Player ${displayController.activePlayer} wins!`;
+            winnerMsg.textContent = `Player ${displayController.activePlayer()} wins!`;
             playerMsg.style.display = 'none';
             winner = true;
         } else {
