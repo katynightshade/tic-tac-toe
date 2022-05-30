@@ -26,10 +26,18 @@ const displayController = (() => {
     }
     let playerX = Player('X');
     let playerO = Player('O');
-    let activePlayer = playerX;
-    let playerTurn = {
-        playerX : playerO,
-        playerO : playerX,
+    
+
+    function activePlayer() {
+        let current;
+        let round = gameFlow.round;
+        if (round == 1 || round == 3 || round == 5 || round == 7 || round == 9) {
+            current = playerX;
+        } else {
+            current = playerO;
+        }
+        console.log(current.sign);
+        return current.sign;
     }
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
@@ -44,9 +52,7 @@ const displayController = (() => {
             gameFlow.winnerCheck();
             if (gameFlow.winner === false) {
                 if (gameFlow.round < 9) {
-                    //activePlayer returns undefined
-                    activePlayer = playerTurn[activePlayer];
-                    console.log(activePlayer);
+                    activePlayer();
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
@@ -87,7 +93,7 @@ const gameFlow = (() => {
             (board[0] === board[4] && board[4] === board[8] && board[0] === board[8] && board[0] !== '' && board[4] !== '' && board[8] !== '') ||
             (board[2] === board[4] && board[4] === board[6] && board[2] === board[6] && board[2] !== '' && board[4] !== '' && board[6] !== '')
         ) {
-            winnerMsg.textContent = `Player ${displayController.activePlayer.sign} wins!`;
+            winnerMsg.textContent = `Player ${displayController.activePlayer} wins!`;
             playerMsg.style.display = 'none';
             winner = true;
         }
