@@ -25,8 +25,7 @@ const displayController = (() => {
         'O': 'X',
     }
     let playerX = Player('X');
-    let playerO = Player('O');
-    
+    let playerO = Player('O');    
 
     function activePlayer() {
         let current;
@@ -42,14 +41,13 @@ const displayController = (() => {
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems(e) {
             if (item.textContent !== '') return;
-            //gameFlow.winner continues to return false
-            if (gameFlow.winner === true) return;
             makeBoard.board[e.target.id] = selection;
             item.textContent = selection;
             selection = nextTurn[selection];
             gameFlow.round += 1;
             gameFlow.winnerCheck();
-            if (gameFlow.winner === false) {
+            if (/*winner = true */) return;
+            if (/*winner = false */) {
                 if (gameFlow.round < 9) {
                     activePlayer();
                 } else if (gameFlow.round === 9) {
@@ -72,12 +70,12 @@ const displayController = (() => {
 
 const gameFlow = (() => {
     let round = 0;
-    let winner;
+    
 
     const winnerMsg = document.getElementById('winner-msg');
     const playerMsg = document.getElementById('player-msg');
 
-    function winnerCheck() {
+    function winnerCheck(winner) {
         let board = makeBoard.board;
         if (
             (board[0] === board[1] && board[1] === board[2] && board[0] === board[2] && board[0] !== '' && board[1] !== '' && board[2] !== '') ||
@@ -95,6 +93,7 @@ const gameFlow = (() => {
         } else {
             winner = false;
         }
+        return winner;
     }
 
     function declareTie() {
@@ -104,7 +103,6 @@ const gameFlow = (() => {
 
     return {
         round,
-        winner,
         winnerCheck, 
         declareTie,
     }
