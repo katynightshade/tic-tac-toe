@@ -56,7 +56,7 @@ const displayController = (() => {
                 } else if (gameFlow.round === 9) {
                     gameFlow.declareTie();
                 };
-            } else {
+            } else if (gameFlow.winner == true) {
                 console.log('returned');
                 return
             }
@@ -76,7 +76,7 @@ const displayController = (() => {
 
 const gameFlow = (() => {
     let round = 0;
-    let winner = false;
+    let winner;
 
     const winnerMsg = document.getElementById('winner-msg');
     const playerMsg = document.getElementById('player-msg');
@@ -96,6 +96,8 @@ const gameFlow = (() => {
             winnerMsg.textContent = `Player ${displayController.activePlayer} wins!`;
             playerMsg.style.display = 'none';
             winner = true;
+        } else {
+            winner = false;
         }
     }
 
