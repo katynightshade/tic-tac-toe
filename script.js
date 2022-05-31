@@ -40,16 +40,15 @@ const displayController = (() => {
 
     const gameArray = document.querySelectorAll('.game-array').forEach((item) => {
         item.addEventListener('click', function placeItems(e) {
-            if (item.textContent !== '') return;
+            if (item.textContent !== '' || gameFlow.winner == true) return;
             makeBoard.board[e.target.id] = selection;
             item.textContent = selection;
             selection = nextTurn[selection];
             gameFlow.round += 1;
             gameFlow.winnerCheck();
-            if (gameFlow.winner === true) return;
             if (gameFlow.round < 9) {
                 activePlayer();
-            } else if (gameFlow.round === 9) {
+            } else if (gameFlow.round === 9 && gameFlow.winner === false) {
                 gameFlow.declareTie();
             };
         });
@@ -68,13 +67,12 @@ const displayController = (() => {
 
 const gameFlow = (() => {
     let round = 0;
-    let winner;
-    
+    let winner = false;    
 
     const winnerMsg = document.getElementById('winner-msg');
     const playerMsg = document.getElementById('player-msg');
 
-    function winnerCheck(winner) {
+    function winnerCheck() {
         let board = makeBoard.board;
         if (
             (board[0] === board[1] && board[1] === board[2] && board[0] === board[2] && board[0] !== '' && board[1] !== '' && board[2] !== '') ||
@@ -88,16 +86,17 @@ const gameFlow = (() => {
         ) {
             winnerMsg.textContent = `Player ${displayController.activePlayer()} wins!`;
             playerMsg.style.display = 'none';
-            winner = true;
+            this.winner = true;
+            console.log(`Player ${displayController.activePlayer()} wins!`);
         } else {
-            winner = false;
+            this.winner = false;
         }
-        return winner;
     }
 
     function declareTie() {
         winnerMsg.textContent = 'Tied game!';
         playerMsg.style.display = 'none';
+        console.log('Tied game!');
     }
 
     return {
